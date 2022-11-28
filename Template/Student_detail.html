@@ -1,0 +1,45 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>生徒詳細</h2>
+  <hr class="my-4">
+  <br>
+  <div class="container d-grid gap-2 justify-content-md-center">
+    <p><a class='btn btn-outline-info btn-lg' href="{% url 'Scheduler:update2' pk=student_detail.pk %}">生徒情報を更新する</a></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <br>
+      <div class="fw-bold">名前</div>
+      <div class="fs-3">{{ student_detail.name }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">年齢</div>
+      <div class="fs-3">{{ student_detail.age }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">教科</div>
+      <div class="fs-3">{{ student_detail.subject }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">担当教師</div>
+      <div class="fs-3">{{ student_detail.teacher }}</div>
+    </li><br>
+  </ul> 
+
+  {% if user.is_superuser %}
+  <div class="container d-grid gap-2 justify-content-md-center">
+    <br>
+    <p><a class='btn btn-danger btn-sm' href="{% url 'Scheduler:delete2' pk=student_detail.pk %}">生徒情報を削除する</a></p>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p><a class='btn btn-outline-dark btn-lg' onClick="javascript:history.go(-1);">戻る</a></p>
+    </div>
+  </footer>
+  {% endif %}
+</div>
+{% endblock %}

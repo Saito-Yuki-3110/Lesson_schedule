@@ -1,0 +1,49 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h1>{{ user.username}}のページ</h1>
+  <hr class="my-4">
+  <br>
+  <h2>授業予定</h2>
+  <br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">授業日</th>
+        <th scope="col">開始時間</th>
+        <th scope="col">生徒</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for lesson in user.Lesson.all|dictsort:"time"|dictsort:"date" %}
+          {% if today.date > lesson.date and lesson.is_checked %}
+            <tr class="table-success">
+              <td>{{ lesson.date | date:'Y/m/d' }}</td>
+              <td>{{ lesson.time }}</td>
+              <td>{{ lesson.student }}</td>
+              <td><a href="{% url 'Scheduler:detail3' pk=lesson.pk %}">詳細</a></td>
+            </tr>
+          {% elif today.date > lesson.date %}
+            <tr class="table-danger">
+              <td>{{ lesson.date | date:'Y/m/d' }}</td>
+              <td>{{ lesson.time }}</td>
+              <td>{{ lesson.student }}</td>
+              <td><a href="{% url 'Scheduler:check' pk=lesson.pk %}">確認</a></td>
+            </tr>
+          {% else %}   
+           <tr class="table-warning">
+            <td>{{ lesson.date | date:'Y/m/d' }}</td>
+            <td>{{ lesson.time }}</td>
+             <td>{{ lesson.student }}</td>
+             <td><a href="{% url 'Scheduler:detail3' pk=lesson.pk %}">詳細</a></td>
+           </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>授業詳細</h2>
+  <hr class="my-4">
+  <br>
+  {%if lesson_detail.is_checked %}
+    <div class="container d-grid gap-2 justify-content-md-center bg-success">
+      <p class="fs-3">授業は確認済みです</p>
+    </div>
+  {% else %}
+    <div class="container d-grid gap-2 justify-content-md-center">
+      <p><a class='btn btn-outline-info btn-lg' href="{% url 'Scheduler:update3' pk=lesson_detail.pk %}">授業情報を更新する</a></p>
+    </div>
+  {% endif %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <br>
+      <div class="fw-bold">授業日</div>
+      <div class="fs-3">{{ lesson_detail.date | date:'Y/m/d' }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <br>
+      <div class="fw-bold">開始時間</div>
+      <div class="fs-3">{{ lesson_detail.time }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">教師</div>
+      <div class="fs-3">{{ lesson_detail.teacher }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">生徒</div>
+      <div class="fs-3">{{ lesson_detail.student }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">教科</div>
+      <div class="fs-3">{{ lesson_detail.subject }}</div>
+    </li><br>
+  </ul>  
+  
+  <div class="container d-grid gap-2 justify-content-md-center">
+    <br>
+    <p><a class='btn btn-danger btn-sm' href="{% url 'Scheduler:delete3' pk=lesson_detail.pk %}">授業情報を削除する</a></p>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p><a class='btn btn-outline-dark btn-lg' onClick="javascript:history.go(-1);">戻る</a></p>
+    </div>
+  </footer>
+</div>
+{% endblock %}

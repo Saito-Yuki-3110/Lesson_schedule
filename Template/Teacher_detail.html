@@ -1,0 +1,64 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>教師詳細</h2>
+  <hr class="my-4">
+  <br>
+  {% if user.is_superuser %}
+    <div class="container d-grid gap-2 justify-content-md-center">
+      <p><a class='btn btn-outline-info btn-lg' href="{% url 'Scheduler:update1' pk=teacher_detail.pk %}">教師情報を更新する</a></p>
+    </div>
+  {% endif %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <br>
+      <div class="fw-bold">名前</div>
+      <div class="fs-3">{{ teacher_detail.username }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">年齢</div>
+      <div class="fs-3">{{ teacher_detail.age }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">メールアドレス</div>
+      <div class="fs-3">{{ teacher_detail.email }}</div>
+    </li><br>
+    <li class="list-group-item">
+      <div class="fw-bold">教科</div>
+      <div class="fs-3">{{ teacher_detail.subject }}</div>
+    </li><br>
+  </ul>  
+ 
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">担当生徒</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in teacher_detail.Student.all %}
+      <tr class="table-secondary">
+        <td class="fs-5">{{ student.name }}</td>
+        <td class="fs-5"><a href="{% url 'Scheduler:detail2' pk=student.pk %}">詳細</a></td>
+      </tr>
+      {% endfor %}
+    <tbody>
+  </table>
+  
+  {% if user.is_superuser %}
+  <div class="container d-grid gap-2 justify-content-md-center">
+    <br>
+    <p><a class='btn btn-danger btn-sm' href="{% url 'Scheduler:delete1' pk=teacher_detail.pk %}">教師情報を削除する</a></p>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p><a class='btn btn-outline-dark btn-lg' onClick="javascript:history.go(-1);">戻る</a></p>
+    </div>
+  </footer>
+  {% endif %}
+</div>
+{% endblock %}

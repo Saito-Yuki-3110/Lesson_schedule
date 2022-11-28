@@ -1,0 +1,33 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>生徒一覧</h2>
+  <hr class="my-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>生徒名</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in student_list %}
+      <tr class="table-secondary">
+        <td>{{ student.name }}</td>
+        <td><a href="{% url 'Scheduler:detail2' pk=student.pk %}">詳細</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <hr class="my-4">
+  
+  <div class="container">
+    <p><a class='btn btn-outline-primary' href="{% url 'Scheduler:create2' %}">生徒を登録する</a></p>
+    <br>
+  </div>
+</div>
+{% endblock %}

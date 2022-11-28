@@ -1,0 +1,57 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>授業一覧</h2>
+  <hr class="my-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>授業日</th>
+        <th>開始時間</th>
+        <th>教師名</th>
+        <th>生徒名</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lesson in lesson_list.all|dictsort:"time"|dictsort:"date" %}
+        {% if today.date > lesson.date and lesson.is_checked %}
+          <tr class="table-success">
+            <td>{{ lesson.date | date:'Y/m/d' }}</td>
+            <td>{{ lesson.time }}</td>
+            <td>{{ lesson.teacher }}</td>
+            <td>{{ lesson.student }}</td>
+            <td><a href="{% url 'Scheduler:detail3' pk=lesson.pk %}">詳細</a></td>
+          </tr>
+        {% elif today.date > lesson.date %}
+          <tr class="table-danger">
+            <td>{{ lesson.date | date:'Y/m/d' }}</td>
+            <td>{{ lesson.time }}</td>
+            <td>{{ lesson.teacher }}</td>
+            <td>{{ lesson.student }}</td>
+            <td><a href="{% url 'Scheduler:detail3' pk=lesson.pk %}">詳細</a></td>
+          </tr>
+        {% else %}
+          <tr class="table-warning">
+            <td>{{ lesson.date | date:'Y/m/d' }}</td>
+            <td>{{ lesson.time }}</td>
+            <td>{{ lesson.teacher }}</td>
+            <td>{{ lesson.student }}</td>
+            <td><a href="{% url 'Scheduler:detail3' pk=lesson.pk %}">詳細</a></td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <hr class="my-4">
+
+  <div class="container">
+    <p><a class='btn btn-outline-primary' href="{% url 'Scheduler:create3' %}">授業を登録する</a></p>
+    <br>
+  </div>
+</div>
+{% endblock %}

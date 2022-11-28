@@ -1,0 +1,16 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="container">
+  <h2 class="text-center">本当に削除しますか</h2>
+</div>
+<br>
+<form method="post">
+  {% csrf_token %}
+<div class="text-center">
+  <input type="button" class="me-5" value="キャンセル" onClick="javascript:history.go(-1);">
+  <input type="submit" class="ms-5 btn btn-outline-danger" value="削除する">
+</div>
+</form>
+{% endblock %}
