@@ -27,6 +27,7 @@ body {
             <h1 class="card-title">ログイン</h1>
             <br>
             {{ form.as_p }}
+            <br>
             {% csrf_token %}
             <p class="card-text"><input type="hidden" name="next" value="{{next}}"></p>
             <p class="card-text"><button class="btn btn-outline-primary" type="submit">ログイン</button>
