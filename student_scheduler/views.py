@@ -227,8 +227,17 @@ class LessonDeleteView(DeleteView):
     #削除後のリダイレクト先
     success_url = reverse_lazy("Scheduler:list")
 
+#お知らせ一覧画面
+class MessageList(ListView):
+    #Messageテーブル連携
+    model = models.Message
+    #レコード情報をテンプレートに渡すオブジェクト
+    context_object_name = "message_list"
+    #テンプレートファイル連携
+    template_name = "Message_list.html"
+
 #お知らせフォーム画面
-class MessageFormView(CreateView):
+class MessageForm(CreateView):
     #Messageテーブル連携
     model = models.Message
     #テンプレートファイル連携
