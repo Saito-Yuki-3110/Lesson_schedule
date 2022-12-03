@@ -50,7 +50,6 @@
   {% for mes in message %}
       <div>{{ mes.person }}</div>
       <div>{{ mes.message }}</div>
-    </tr>
   {% endfor %}
   </div>
   <p><a href="{% url 'Scheduler:message' %}">お知らせを追加する</a></p>
