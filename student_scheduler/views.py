@@ -26,11 +26,14 @@ class TeacherLogout(LoginRequiredMixin, LogoutView):
 
 #デフォルト(ホーム)画面
 class Teacher(LoginRequiredMixin, TemplateView):
+    #テンプレートファイル連携
     template_name = 'Teacher.html'
-
+    #レコード情報をテンプレートに渡すオブジェクト
+    context_object_name = "teacher_list"
+    #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
-
+    #contextデータ設定
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
