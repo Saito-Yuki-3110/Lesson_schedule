@@ -42,4 +42,4 @@ class Lesson(models.Model):
 
 class Message(models.Model):
     message = models.CharField(max_length=150, default="メッセージを記入",blank=False,verbose_name="お知らせ")
-    person =     teacher = models.ForeignKey(Teacher,related_name='Student',on_delete=models.CASCADE,verbose_name="教師")
+    person = models.ForeignKey(Teacher,related_name='Message',on_delete=models.CASCADE,verbose_name="教師")
