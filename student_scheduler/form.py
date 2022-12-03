@@ -25,7 +25,7 @@ class LessonForm(forms.ModelForm):
         model = Lesson
         fields = ['date','time', 'teacher', 'student', 'subject']
 
-class MessageFrom(form.ModelForm):
+class MessageForm(forms.ModelForm):
     class Meta:
-        model = MessageFrom
+        model = Message
         fields = ['person', 'message']
