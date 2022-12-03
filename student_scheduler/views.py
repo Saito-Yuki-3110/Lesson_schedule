@@ -26,10 +26,12 @@ class TeacherLogout(LoginRequiredMixin, LogoutView):
 
 #デフォルト(ホーム)画面
 class Teacher(LoginRequiredMixin, TemplateView):
+    #Messageテーブル連携
+    model = models.Message
     #テンプレートファイル連携
     template_name = 'Teacher.html'
     #レコード情報をテンプレートに渡すオブジェクト
-    context_object_name = "teacher_list"
+    context_object_name = "message"
     #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
