@@ -251,4 +251,4 @@ class MessageForm(CreateView):
         return form_kwargs
     #作成後のリダイレクト先
     def get_success_url(self):
-        return reverse('Scheduler:list')
+        return reverse('Scheduler:list4')
