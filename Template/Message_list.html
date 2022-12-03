@@ -8,8 +8,9 @@
   <hr class="my-4">
   <body>
       {% for mes in Message_list %}
-        {{ mes.person }}
-        {{ mes.message }}
+        <p>{{ mes.person }}</p>
+        <p><div class="border border-dark p-2 rounded"style="height:10rem">{{ mes.message}}</div></p>
+        <br>
       {% endfor %}
   </body>
   <hr class="my-4">
