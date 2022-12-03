@@ -26,5 +26,5 @@ urlpatterns = [
     path('delete1/<int:pk>/',views.TeacherDeleteView.as_view(),name='delete1'),    #削除画面(教師)
     path('delete2/<int:pk>/',views.StudentDeleteView.as_view(),name='delete2'),    #削除画面(生徒)
     path('delete3/<int:pk>/',views.LessonDeleteView.as_view(),name='delete3'),     #削除画面(生徒)
-    path('message/<int:pk>/',views.MessageFormView.as_view(),name='message'),      #お知らせフォーム画面
+    path('message',views.MessageFormView.as_view(),name='message'),      #お知らせフォーム画面
 ]
