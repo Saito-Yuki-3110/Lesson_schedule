@@ -15,10 +15,10 @@ import pytz
 # Create your views here.
 #ログイン
 class TeacherLogin(LoginView):
-
-    form_class = LoginForm
-
+    #テンプレートファイル連携
     template_name = 'Login.html'
+    #フォーム連携
+    form_class = LoginForm
 
 #ログアウト
 class TeacherLogout(LoginRequiredMixin, LogoutView):
@@ -26,12 +26,8 @@ class TeacherLogout(LoginRequiredMixin, LogoutView):
 
 #デフォルト(ホーム)画面
 class Teacher(LoginRequiredMixin, TemplateView):
-    #Messageテーブル連携
-    model = models.Message
     #テンプレートファイル連携
     template_name = 'Teacher.html'
-    #レコード情報をテンプレートに渡すオブジェクト
-    context_object_name = "message"
     #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
@@ -69,10 +65,10 @@ class LessonList(ListView):
     context_object_name = "lesson_list"
     #テンプレートファイル連携
     template_name = "Lesson_list.html"
-
+    #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
-
+    #contextデータの設定
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['today']= self.today
@@ -104,10 +100,10 @@ class LessonDetail(DetailView):
     context_object_name = "lesson_detail"
     #テンプレートファイル連携
     template_name = "Lesson_detail.html"
-
+    #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
-    
+    #contextデータの設定
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['today']= self.today
@@ -115,11 +111,11 @@ class LessonDetail(DetailView):
 
 #新規登録(教師)
 class TeacherSignup(CreateView):
-
+    #テンプレートファイル連携
     template_name = 'Teacher_form.html'
-
+    #フォーム連携
     form_class = SignupForm
-
+    #作成後のリダイレクト先
     def get_success_url(self):
         return reverse('Scheduler:list1')
     
@@ -141,9 +137,9 @@ class LessonCreateView(CreateView):
     model = models.Lesson
     #テンプレートファイル連携
     template_name = "Lesson_form.html"
-
+    #フォーム連携
     form_class = LessonForm
-
+    #フォーム初期値設定
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super().get_form_kwargs(*args, **kwargs)
         form_kwargs['initial'] = {'teacher': self.request.user} 
@@ -155,12 +151,12 @@ class LessonCreateView(CreateView):
 
 #更新画面(教師)
 class TeacherUpdateView(UpdateView):
-
+    #Teacherテーブル連携
     model = models.Teacher
-
-    form_class = SignupForm
     #テンプレートファイル連携
     template_name = "Teacher_form.html"
+    #フォーム連携
+    form_class = SignupForm
     #更新後のリダイレクト先
     success_url = reverse_lazy("Scheduler:list1")
 
@@ -188,17 +184,17 @@ class LessonUpdateView(UpdateView):
 
 #授業確認画面
 class LessonIsCheckedView(UpdateView):
-
+    #Lessonテーブル連携
     model = models.Lesson
-
+    #レコード情報をテンプレートに渡すオブジェクト
     context_object_name = "lesson_detail"
-
+    #テンプレートファイル連携
     template_name = "LessonIsChecked_form.html"
-
+    #フォーム連携
     form_class = IsCheckedForm
-
+    #更新後のリダイレクト先
     success_url = reverse_lazy("Scheduler:list")
-
+    #フォームの初期値設定
     def get_initial(self):
             initial = super().get_initial()
             initial["is_checked"] =  True
@@ -231,8 +227,22 @@ class LessonDeleteView(DeleteView):
     #削除後のリダイレクト先
     success_url = reverse_lazy("Scheduler:list")
 
+#お知らせ一覧画面
+class MessageList(ListView):
+    #Messageテーブル連携
+    model = models.Message
+    #レコード情報をテンプレートに渡すオブジェクト
+    context_object_name = "Message_list"
+    #テンプレートファイル連携
+    template_name = "Message_list.html"
+    #contextデータ設定
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
 #お知らせフォーム画面
-class MessageFormView(CreateView):
+class MessageForm(CreateView):
     #Messageテーブル連携
     model = models.Message
     #テンプレートファイル連携
@@ -246,4 +256,13 @@ class MessageFormView(CreateView):
         return form_kwargs
     #作成後のリダイレクト先
     def get_success_url(self):
-        return reverse('Scheduler:list')
+        return reverse('Scheduler:list4')
+
+#お知らせ削除画面
+class MessageDeleteView(DeleteView):
+    #Lessonテーブル連携
+    model = models.Message
+    #テンプレートファイル連携
+    template_name = "Message_delete.html"
+    #削除後のリダイレクト先
+    success_url = reverse_lazy("Scheduler:list4")
