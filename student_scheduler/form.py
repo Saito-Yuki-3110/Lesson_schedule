@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
-from .models import Lesson
+from .models import Lesson, Message
 
 Teacher = get_user_model()
 
@@ -24,3 +24,8 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['date','time', 'teacher', 'student', 'subject']
+
+class MessageFrom(form.ModelForm):
+    class Meta:
+        model = MessageFrom
+        fields = ['person', 'message']
