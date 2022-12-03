@@ -1,0 +1,25 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<div class="container bg-info">
+  <h2 class="text-center">お知らせ内容</h2>
+</div>  
+<form method="POST">
+  <div class="visually-hidden">
+      {{ form.person }}
+  </div>
+  <label class="col-offset-1 col-3 control-label">
+    {{ form.message.label_tag }}
+  </label>
+  <div class="">
+    {{ form.message }}
+  </div><br>
+
+  {% csrf_token %}
+  <hr class="my-4">
+  <div class="text-center">
+    <input type="button" class="me-5" value="キャンセル" onClick="javascript:history.go(-1);">
+    <input type="submit" class="ms-5 btn btn-outline-success" value="送信">
+  </div>
+</form>
+{% endblock %}

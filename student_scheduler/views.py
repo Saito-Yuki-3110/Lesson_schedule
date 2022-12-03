@@ -5,8 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView, UpdateView
 from . import models
-from .models import Teacher
-from .form import SignupForm, LoginForm, IsCheckedForm, LessonForm
+from .form import SignupForm, LoginForm, IsCheckedForm, LessonForm, MessageForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,11 +26,16 @@ class TeacherLogout(LoginRequiredMixin, LogoutView):
 
 #デフォルト(ホーム)画面
 class Teacher(LoginRequiredMixin, TemplateView):
+    #Messageテーブル連携
+    model = models.Message
+    #テンプレートファイル連携
     template_name = 'Teacher.html'
-
+    #レコード情報をテンプレートに渡すオブジェクト
+    context_object_name = "message"
+    #時間設定
     jst = pytz.timezone('Asia/Tokyo')
     today = datetime.now(tz=jst)
-
+    #contextデータ設定
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
@@ -226,3 +230,20 @@ class LessonDeleteView(DeleteView):
     template_name = "Lesson_delete.html"
     #削除後のリダイレクト先
     success_url = reverse_lazy("Scheduler:list")
+
+#お知らせフォーム画面
+class MessageFormView(CreateView):
+    #Messageテーブル連携
+    model = models.Message
+    #テンプレートファイル連携
+    template_name = "Message.html"
+    #フォーム連携
+    form_class = MessageForm
+    #初期値設定
+    def get_form_kwargs(self, *args, **kwargs):
+        form_kwargs = super().get_form_kwargs(*args, **kwargs)
+        form_kwargs['initial'] = {'person': self.request.user} 
+        return form_kwargs
+    #作成後のリダイレクト先
+    def get_success_url(self):
+        return reverse('Scheduler:list')
