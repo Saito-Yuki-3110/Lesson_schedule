@@ -235,6 +235,11 @@ class MessageList(ListView):
     context_object_name = "Message_list"
     #テンプレートファイル連携
     template_name = "Message_list.html"
+    #contextデータ設定
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 #お知らせフォーム画面
 class MessageForm(CreateView):
@@ -252,3 +257,12 @@ class MessageForm(CreateView):
     #作成後のリダイレクト先
     def get_success_url(self):
         return reverse('Scheduler:list4')
+
+#お知らせ削除画面
+class MessageDeleteView(DeleteView):
+    #Lessonテーブル連携
+    model = models.Message
+    #テンプレートファイル連携
+    template_name = "Message_delete.html"
+    #削除後のリダイレクト先
+    success_url = reverse_lazy("Scheduler:list4")
