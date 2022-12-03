@@ -21,6 +21,9 @@
               <a class="nav-link active" aria-current="page" href="{% url 'Scheduler:create3' %}">授業登録</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'Scheduler:list4' %}">お知らせ</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'Scheduler:detail1' pk=user.pk %}">ユーザー情報</a>
             </li>
             {% if user.is_superuser %}

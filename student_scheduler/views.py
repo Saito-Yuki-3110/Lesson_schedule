@@ -232,7 +232,7 @@ class MessageList(ListView):
     #Messageテーブル連携
     model = models.Message
     #レコード情報をテンプレートに渡すオブジェクト
-    context_object_name = "message_list"
+    context_object_name = "Message_list"
     #テンプレートファイル連携
     template_name = "Message_list.html"
 

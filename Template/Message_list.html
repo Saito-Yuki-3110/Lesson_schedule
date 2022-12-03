@@ -1,0 +1,22 @@
+{% extends "Header.html" %}
+
+{% block content_block %}
+<br>
+<div class="jumbotron">
+  <hr class="my-4">
+  <h2>お知らせ</h2>
+  <hr class="my-4">
+  <body>
+      {% for mes in message_list %}
+        {{ mes.person }}
+        {{ mes.message }}
+      {% endfor %}
+  </body>
+  <hr class="my-4">
+
+  <div class="container">
+    <p><a class='btn btn-outline-primary' href="{% url 'Scheduler:message' %}">お知らせを書く</a></p>
+    <br>
+  </div>
+</div>
+{% endblock %}
